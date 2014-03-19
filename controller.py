@@ -1,3 +1,8 @@
+# coding=UTF-8
+import  json
+from pprint import pprint
+
+
 def estados_json():
 	print request.vars
 	with open('/home/fernado/web2py/tronco/applications/ubercred/views/estados.json') as json_data:
