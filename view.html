@@ -1,0 +1,43 @@
+<!-- codigo da pagina front -->
+<select id="estado">
+</select>
+
+<select id='cidades'></select>
+</div>
+
+<script>
+$.ajax({
+         type: "POST",
+         url: "estados_json",
+         data: {estado: $("#estado").val()},
+        dataType: "json",
+         success: function(json){
+           $.each(json, function(i, value){
+                $("select#estado").append(
+                "<option value="+json[i].ID+">"+json[i].Nome+"</option>"); 
+       });   
+    }
+});
+
+   $("#estado").change(function(){
+    var msg = $("#estado").val();
+    //alert(msg);
+      $.ajax({
+         type: "POST",
+         url: "cidades_json",
+         data: {estado: $("#estado").val()},
+         dataType: "json",
+         success: function(json){
+            var options = "";
+            //alert(json[0].Nome);
+            $.each(json, function(i, value){
+                if (json[i].Estado == msg){
+                //    alert(json[i].Nome);
+                options += '<option value="' + json[i].Nome + '">' + json[i].Nome + '</option>';
+                }
+            });
+            $("#cidades").html(options);
+         }
+      });
+   });
+</script>
